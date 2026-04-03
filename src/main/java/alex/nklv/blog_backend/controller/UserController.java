@@ -45,6 +45,7 @@ public class UserController {
         service.delete(id);
     }
 
+    @PostMapping("/authenticate")
     public UserDto login(@Valid @RequestBody UserAuthDto dto) {
         return service.login(dto);
     }
