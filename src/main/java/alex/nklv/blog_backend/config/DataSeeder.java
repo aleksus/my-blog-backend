@@ -29,14 +29,17 @@ public class DataSeeder {
             User user1 = new User();
             user1.setName("Ivan Petrov");
             user1.setEmail("ivan@example.com");
+            user1.setPassword("1234");
 
             User user2 = new User();
             user2.setName("Maria Georgieva");
             user2.setEmail("maria@example.com");
+            user2.setPassword("2345");
 
             User user3 = new User();
             user3.setName("Nikolay Dimitrov");
             user3.setEmail("nikolay@example.com");
+            user3.setPassword("3456");
 
             user1 = userRepository.save(user1);
             user2 = userRepository.save(user2);
