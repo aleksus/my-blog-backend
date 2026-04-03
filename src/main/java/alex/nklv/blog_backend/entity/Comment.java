@@ -21,7 +21,7 @@ public class Comment {
     private Long id;
 
     @Column(length = 2000)
-    private String text;
+    private String content;
 
     private LocalDateTime createdAt;
 

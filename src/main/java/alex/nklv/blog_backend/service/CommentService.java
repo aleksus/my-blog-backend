@@ -53,7 +53,7 @@ public class CommentService {
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
         Comment comment = new Comment();
-        comment.setText(dto.getText());
+        comment.setContent(dto.getContent());
         comment.setUser(user);
         comment.setPost(post);
         comment.setCreatedAt(LocalDateTime.now());
@@ -71,7 +71,7 @@ public class CommentService {
         Post post = postRepository.findById(dto.getPostId())
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
-        comment.setText(dto.getText());
+        comment.setContent(dto.getContent());
         comment.setUser(user);
         comment.setPost(post);
 
@@ -88,7 +88,7 @@ public class CommentService {
     private CommentDto toDto(Comment comment) {
         return new CommentDto(
                 comment.getId(),
-                comment.getText(),
+                comment.getContent(),
                 comment.getUser().getId(),
                 comment.getUser().getName(),
                 comment.getPost().getId(),

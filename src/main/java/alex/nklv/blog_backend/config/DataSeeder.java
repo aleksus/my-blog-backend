@@ -81,61 +81,61 @@ public class DataSeeder {
 
             // COMMENTS
             Comment comment1 = new Comment();
-            comment1.setText("Very helpful introduction!");
+            comment1.setContent("Very helpful introduction!");
             comment1.setCreatedAt(LocalDateTime.now().minusDays(9));
             comment1.setUser(user2);
             comment1.setPost(post1);
 
             Comment comment2 = new Comment();
-            comment2.setText("Spring Boot really saves a lot of setup time.");
+            comment2.setContent("Spring Boot really saves a lot of setup time.");
             comment2.setCreatedAt(LocalDateTime.now().minusDays(9).plusHours(2));
             comment2.setUser(user3);
             comment2.setPost(post1);
 
             Comment comment3 = new Comment();
-            comment3.setText("Angular routing was the hardest part for me at first.");
+            comment3.setContent("Angular routing was the hardest part for me at first.");
             comment3.setCreatedAt(LocalDateTime.now().minusDays(7));
             comment3.setUser(user1);
             comment3.setPost(post2);
 
             Comment comment4 = new Comment();
-            comment4.setText("This gives me ideas for my semester project.");
+            comment4.setContent("This gives me ideas for my semester project.");
             comment4.setCreatedAt(LocalDateTime.now().minusDays(7).plusHours(3));
             comment4.setUser(user3);
             comment4.setPost(post2);
 
             Comment comment5 = new Comment();
-            comment5.setText("Collections in Java were confusing until I practiced more.");
+            comment5.setContent("Collections in Java were confusing until I practiced more.");
             comment5.setCreatedAt(LocalDateTime.now().minusDays(5));
             comment5.setUser(user2);
             comment5.setPost(post3);
 
             Comment comment6 = new Comment();
-            comment6.setText("Good explanation of REST principles.");
+            comment6.setContent("Good explanation of REST principles.");
             comment6.setCreatedAt(LocalDateTime.now().minusDays(3));
             comment6.setUser(user1);
             comment6.setPost(post4);
 
             Comment comment7 = new Comment();
-            comment7.setText("I think blog systems are definitely easier than e-shops.");
+            comment7.setContent("I think blog systems are definitely easier than e-shops.");
             comment7.setCreatedAt(LocalDateTime.now().minusDays(1));
             comment7.setUser(user3);
             comment7.setPost(post5);
 
             Comment comment8 = new Comment();
-            comment8.setText("Task manager is another solid student project idea.");
+            comment8.setContent("Task manager is another solid student project idea.");
             comment8.setCreatedAt(LocalDateTime.now().minusHours(20));
             comment8.setUser(user1);
             comment8.setPost(post5);
 
             Comment comment9 = new Comment();
-            comment9.setText("Nice article, short and practical.");
+            comment9.setContent("Nice article, short and practical.");
             comment9.setCreatedAt(LocalDateTime.now().minusHours(12));
             comment9.setUser(user2);
             comment9.setPost(post4);
 
             Comment comment10 = new Comment();
-            comment10.setText("Would love to see a part two on Spring Data JPA.");
+            comment10.setContent("Would love to see a part two on Spring Data JPA.");
             comment10.setCreatedAt(LocalDateTime.now().minusHours(6));
             comment10.setUser(user3);
             comment10.setPost(post1);

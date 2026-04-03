@@ -18,9 +18,9 @@ public class CommentDto {
 
     private Long id;
 
-    @NotBlank(message = "Comment text is required")
+    @NotBlank(message = "Comment content is required")
     @Size(min = 2, max = 2000)
-    private String text;
+    private String content;
 
     @NotNull(message = "User ID is required")
     private Long userId;
