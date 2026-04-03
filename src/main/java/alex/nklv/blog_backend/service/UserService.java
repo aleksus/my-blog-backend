@@ -1,8 +1,11 @@
 package alex.nklv.blog_backend.service;
 
+import alex.nklv.blog_backend.dto.UserAuthDto;
 import alex.nklv.blog_backend.dto.UserDto;
+import alex.nklv.blog_backend.dto.UserRegisterDto;
 import alex.nklv.blog_backend.entity.User;
 import alex.nklv.blog_backend.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +14,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository repo;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository repo) {
+    public UserService(UserRepository repo, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.repo = repo;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public List<UserDto> getAll() {
@@ -26,7 +31,16 @@ public class UserService {
         return toDto(user);
     }
 
-    public UserDto create(UserDto dto) {
+    public UserDto login(UserAuthDto dto) {
+        User user = repo.findByEmail(dto.getEmail()).orElseThrow(() -> new RuntimeException("User does not exist"));
+
+        if (!bCryptPasswordEncoder.matches(dto.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Wrong password");
+        }
+        return toDto(user);
+    }
+
+    public UserDto create(UserRegisterDto dto) {
         repo.findByEmail(dto.getEmail()).ifPresent(u -> {
             throw new RuntimeException("Email already exists");
         });
@@ -34,6 +48,7 @@ public class UserService {
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
+        user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
 
         return toDto(repo.save(user));
     }

@@ -1,6 +1,8 @@
 package alex.nklv.blog_backend.controller;
 
+import alex.nklv.blog_backend.dto.UserAuthDto;
 import alex.nklv.blog_backend.dto.UserDto;
+import alex.nklv.blog_backend.dto.UserRegisterDto;
 import alex.nklv.blog_backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto create(@Valid @RequestBody UserDto dto) {
+    public UserDto create(@Valid @RequestBody UserRegisterDto dto) {
         return service.create(dto);
     }
 
@@ -41,5 +43,9 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    public UserDto login(@Valid @RequestBody UserAuthDto dto) {
+        return service.login(dto);
     }
 }
