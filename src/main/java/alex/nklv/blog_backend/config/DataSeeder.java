@@ -9,6 +9,7 @@ import alex.nklv.blog_backend.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +19,8 @@ public class DataSeeder {
     @Bean
     CommandLineRunner seedData(UserRepository userRepository,
                                PostRepository postRepository,
-                               CommentRepository commentRepository) {
+                               CommentRepository commentRepository,
+                               BCryptPasswordEncoder bCryptPasswordEncoder) {
         return args -> {
 
             if (userRepository.count() > 0 || postRepository.count() > 0 || commentRepository.count() > 0) {
@@ -29,17 +31,17 @@ public class DataSeeder {
             User user1 = new User();
             user1.setName("Ivan Petrov");
             user1.setEmail("ivan@example.com");
-            user1.setPassword("1234");
+            user1.setPassword(bCryptPasswordEncoder.encode("1234"));
 
             User user2 = new User();
             user2.setName("Maria Georgieva");
             user2.setEmail("maria@example.com");
-            user2.setPassword("2345");
+            user2.setPassword(bCryptPasswordEncoder.encode("2345"));
 
             User user3 = new User();
             user3.setName("Nikolay Dimitrov");
             user3.setEmail("nikolay@example.com");
-            user3.setPassword("3456");
+            user3.setPassword(bCryptPasswordEncoder.encode("3456"));
 
             user1 = userRepository.save(user1);
             user2 = userRepository.save(user2);
