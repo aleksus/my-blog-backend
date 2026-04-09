@@ -14,23 +14,21 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentDto {
+public class CommentResponseDto {
 
     private Long id;
 
-    @NotBlank(message = "Comment content is required")
-    @Size(min = 2, max = 2000)
     private String content;
 
-    @NotNull(message = "User ID is required")
     private Long userId;
 
     private String authorName;
 
-    @NotNull(message = "Post ID is required")
     private Long postId;
 
     private String postTitle;
 
     private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 }

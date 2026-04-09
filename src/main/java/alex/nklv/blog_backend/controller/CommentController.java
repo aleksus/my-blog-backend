@@ -1,6 +1,7 @@
 package alex.nklv.blog_backend.controller;
 
-import alex.nklv.blog_backend.dto.CommentDto;
+import alex.nklv.blog_backend.dto.CommentRequestDto;
+import alex.nklv.blog_backend.dto.CommentResponseDto;
 import alex.nklv.blog_backend.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -19,32 +20,32 @@ public class CommentController {
     }
 
     @GetMapping
-    public List<CommentDto> getAll() {
+    public List<CommentResponseDto> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public CommentDto getById(@PathVariable Long id) {
+    public CommentResponseDto getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @GetMapping("/post/{postId}")
-    public List<CommentDto> getByPostId(@PathVariable Long postId) {
+    public List<CommentResponseDto> getByPostId(@PathVariable Long postId) {
         return service.getByPostId(postId);
     }
 
     @GetMapping("/user/{userId}")
-    public List<CommentDto> getByUserId(@PathVariable Long userId) {
+    public List<CommentResponseDto> getByUserId(@PathVariable Long userId) {
         return service.getByUserId(userId);
     }
 
     @PostMapping
-    public CommentDto create(@Valid @RequestBody CommentDto dto) {
+    public CommentResponseDto create(@Valid @RequestBody CommentRequestDto dto) {
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public CommentDto update(@PathVariable Long id, @Valid @RequestBody CommentDto dto) {
+    public CommentResponseDto update(@PathVariable Long id, @Valid @RequestBody CommentRequestDto dto) {
         return service.update(id, dto);
     }
 

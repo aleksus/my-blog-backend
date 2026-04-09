@@ -1,6 +1,7 @@
 package alex.nklv.blog_backend.service;
 
-import alex.nklv.blog_backend.dto.PostDto;
+import alex.nklv.blog_backend.dto.PostRequestDto;
+import alex.nklv.blog_backend.dto.PostResponseDto;
 import alex.nklv.blog_backend.entity.Post;
 import alex.nklv.blog_backend.entity.User;
 import alex.nklv.blog_backend.repository.PostRepository;
@@ -21,25 +22,25 @@ public class PostService {
         this.userRepository = userRepository;
     }
 
-    public List<PostDto> getAll() {
+    public List<PostResponseDto> getAll() {
         return postRepository.findAll().stream().map(this::toDto).toList();
     }
 
-    public PostDto getById(Long id) {
+    public PostResponseDto getById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
         return toDto(post);
     }
 
-    public List<PostDto> getByUserId(Long userId) {
+    public List<PostResponseDto> getByUserId(Long userId) {
         return postRepository.findByUserId(userId).stream().map(this::toDto).toList();
     }
 
-    public List<PostDto> searchByTitle(String title) {
+    public List<PostResponseDto> searchByTitle(String title) {
         return postRepository.findByTitleContainingIgnoreCase(title).stream().map(this::toDto).toList();
     }
 
-    public PostDto create(PostDto dto) {
+    public PostResponseDto create(PostRequestDto dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -47,12 +48,12 @@ public class PostService {
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
         post.setUser(user);
-        post.setCreatedAt(LocalDateTime.now());
+        post.setImageUrl(dto.getImageUrl());
 
         return toDto(postRepository.save(post));
     }
 
-    public PostDto update(Long id, PostDto dto) {
+    public PostResponseDto update(Long id, PostRequestDto dto) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
@@ -62,6 +63,7 @@ public class PostService {
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
         post.setUser(user);
+        post.setImageUrl(dto.getImageUrl());
 
         return toDto(postRepository.save(post));
     }
@@ -73,14 +75,16 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    private PostDto toDto(Post post) {
-        return new PostDto(
+    private PostResponseDto toDto(Post post) {
+        return new PostResponseDto(
                 post.getId(),
                 post.getTitle(),
                 post.getContent(),
                 post.getUser().getId(),
                 post.getUser().getName(),
-                post.getCreatedAt()
+                post.getImageUrl(),
+                post.getCreatedAt(),
+                post.getUpdatedAt()
         );
     }
 }

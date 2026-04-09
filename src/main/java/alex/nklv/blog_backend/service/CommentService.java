@@ -1,6 +1,7 @@
 package alex.nklv.blog_backend.service;
 
-import alex.nklv.blog_backend.dto.CommentDto;
+import alex.nklv.blog_backend.dto.CommentRequestDto;
+import alex.nklv.blog_backend.dto.CommentResponseDto;
 import alex.nklv.blog_backend.entity.Comment;
 import alex.nklv.blog_backend.entity.Post;
 import alex.nklv.blog_backend.entity.User;
@@ -27,25 +28,25 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public List<CommentDto> getAll() {
+    public List<CommentResponseDto> getAll() {
         return commentRepository.findAll().stream().map(this::toDto).toList();
     }
 
-    public CommentDto getById(Long id) {
+    public CommentResponseDto getById(Long id) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
         return toDto(comment);
     }
 
-    public List<CommentDto> getByPostId(Long postId) {
+    public List<CommentResponseDto> getByPostId(Long postId) {
         return commentRepository.findByPostId(postId).stream().map(this::toDto).toList();
     }
 
-    public List<CommentDto> getByUserId(Long userId) {
+    public List<CommentResponseDto> getByUserId(Long userId) {
         return commentRepository.findByUserId(userId).stream().map(this::toDto).toList();
     }
 
-    public CommentDto create(CommentDto dto) {
+    public CommentResponseDto create(CommentRequestDto dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -61,7 +62,7 @@ public class CommentService {
         return toDto(commentRepository.save(comment));
     }
 
-    public CommentDto update(Long id, CommentDto dto) {
+    public CommentResponseDto update(Long id, CommentRequestDto dto) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
 
@@ -85,15 +86,16 @@ public class CommentService {
         commentRepository.deleteById(id);
     }
 
-    private CommentDto toDto(Comment comment) {
-        return new CommentDto(
+    private CommentResponseDto toDto(Comment comment) {
+        return new CommentResponseDto(
                 comment.getId(),
                 comment.getContent(),
                 comment.getUser().getId(),
                 comment.getUser().getName(),
                 comment.getPost().getId(),
                 comment.getPost().getTitle(),
-                comment.getCreatedAt()
+                comment.getCreatedAt(),
+                comment.getUpdatedAt()
         );
     }
 }

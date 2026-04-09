@@ -1,6 +1,7 @@
 package alex.nklv.blog_backend.controller;
 
-import alex.nklv.blog_backend.dto.PostDto;
+import alex.nklv.blog_backend.dto.PostRequestDto;
+import alex.nklv.blog_backend.dto.PostResponseDto;
 import alex.nklv.blog_backend.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -19,32 +20,32 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDto> getAll() {
+    public List<PostResponseDto> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public PostDto getById(@PathVariable Long id) {
+    public PostResponseDto getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @GetMapping("/user/{userId}")
-    public List<PostDto> getByUserId(@PathVariable Long userId) {
+    public List<PostResponseDto> getByUserId(@PathVariable Long userId) {
         return service.getByUserId(userId);
     }
 
     @GetMapping("/search")
-    public List<PostDto> searchByTitle(@RequestParam String title) {
+    public List<PostResponseDto> searchByTitle(@RequestParam String title) {
         return service.searchByTitle(title);
     }
 
     @PostMapping
-    public PostDto create(@Valid @RequestBody PostDto dto) {
+    public PostResponseDto create(@Valid @RequestBody PostRequestDto dto) {
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public PostDto update(@PathVariable Long id, @Valid @RequestBody PostDto dto) {
+    public PostResponseDto update(@PathVariable Long id, @Valid @RequestBody PostRequestDto dto) {
         return service.update(id, dto);
     }
 

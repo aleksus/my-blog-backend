@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDto {
+public class PostRequestDto {
 
     private Long id;
 
@@ -31,5 +31,5 @@ public class PostDto {
 
     private String authorName;
 
-    private LocalDateTime createdAt;
+    private String imageUrl;
 }

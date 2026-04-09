@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -23,8 +25,6 @@ public class Comment {
     @Column(length = 2000)
     private String content;
 
-    private LocalDateTime createdAt;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
@@ -32,4 +32,10 @@ public class Comment {
     @ManyToOne(optional = false)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }
