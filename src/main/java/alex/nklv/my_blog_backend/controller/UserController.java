@@ -2,7 +2,7 @@ package alex.nklv.my_blog_backend.controller;
 
 import alex.nklv.my_blog_backend.dto.UserAuthDto;
 import alex.nklv.my_blog_backend.dto.UserDto;
-import alex.nklv.my_blog_backend.dto.UserRegisterDto;
+import alex.nklv.my_blog_backend.dto.UserRequestDto;
 import alex.nklv.my_blog_backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +31,12 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto create(@Valid @RequestBody UserRegisterDto dto) {
+    public UserDto create(@Valid @RequestBody UserRequestDto dto) {
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public UserDto update(@PathVariable Long id, @Valid @RequestBody UserDto dto) {
+    public UserDto update(@PathVariable Long id, @Valid @RequestBody UserRequestDto dto) {
         return service.update(id, dto);
     }
 

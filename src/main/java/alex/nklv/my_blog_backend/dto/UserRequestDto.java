@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRegisterDto {
+public class UserRequestDto {
 
     private Long id;
 

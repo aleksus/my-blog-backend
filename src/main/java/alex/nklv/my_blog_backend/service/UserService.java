@@ -2,7 +2,7 @@ package alex.nklv.my_blog_backend.service;
 
 import alex.nklv.my_blog_backend.dto.UserAuthDto;
 import alex.nklv.my_blog_backend.dto.UserDto;
-import alex.nklv.my_blog_backend.dto.UserRegisterDto;
+import alex.nklv.my_blog_backend.dto.UserRequestDto;
 import alex.nklv.my_blog_backend.entity.User;
 import alex.nklv.my_blog_backend.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,7 +40,7 @@ public class UserService {
         return toDto(user);
     }
 
-    public UserDto create(UserRegisterDto dto) {
+    public UserDto create(UserRequestDto dto) {
         repo.findByEmail(dto.getEmail()).ifPresent(u -> {
             throw new RuntimeException("Email already exists");
         });
@@ -53,12 +53,13 @@ public class UserService {
         return toDto(repo.save(user));
     }
 
-    public UserDto update(Long id, UserDto dto) {
+    public UserDto update(Long id, UserRequestDto dto) {
         User user = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
+        user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
 
         return toDto(repo.save(user));
     }
