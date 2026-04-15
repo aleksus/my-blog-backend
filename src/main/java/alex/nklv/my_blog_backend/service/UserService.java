@@ -1,5 +1,6 @@
 package alex.nklv.my_blog_backend.service;
 
+import alex.nklv.my_blog_backend.dto.ChangePasswordDto;
 import alex.nklv.my_blog_backend.dto.UserAuthDto;
 import alex.nklv.my_blog_backend.dto.UserDto;
 import alex.nklv.my_blog_backend.dto.UserRequestDto;
@@ -19,6 +20,17 @@ public class UserService {
     public UserService(UserRepository repo, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.repo = repo;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    public void changePassword(Long id, ChangePasswordDto dto) {
+        User user = repo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!bCryptPasswordEncoder.matches(dto.getCurrentPassword(), user.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+
+        user.setPassword(bCryptPasswordEncoder.encode(dto.getNewPassword()));
+        repo.save(user);
     }
 
     public List<UserDto> getAll() {
@@ -59,7 +71,6 @@ public class UserService {
 
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
-        user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
 
         return toDto(repo.save(user));
     }

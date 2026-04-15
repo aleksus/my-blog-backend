@@ -1,10 +1,12 @@
 package alex.nklv.my_blog_backend.controller;
 
+import alex.nklv.my_blog_backend.dto.ChangePasswordDto;
 import alex.nklv.my_blog_backend.dto.UserAuthDto;
 import alex.nklv.my_blog_backend.dto.UserDto;
 import alex.nklv.my_blog_backend.dto.UserRequestDto;
 import alex.nklv.my_blog_backend.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,5 +50,12 @@ public class UserController {
     @PostMapping("/authenticate")
     public UserDto login(@Valid @RequestBody UserAuthDto dto) {
         return service.login(dto);
+    }
+
+    @PutMapping("/{id}/password")
+    public ResponseEntity<?> changePassword(@PathVariable Long id, @Valid @RequestBody ChangePasswordDto dto) {
+
+        service.changePassword(id, dto);
+        return ResponseEntity.ok().build();
     }
 }
